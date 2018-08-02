@@ -12,7 +12,7 @@ public class Person{
     private Integer IdPerson;
     private String Fio;
     private Date Birth;
-    private String Passport;
+    private String Passport;    // пока String, в планах хотел сделать объект в виде компонента
 
     private List<Contract> contractList;
 
