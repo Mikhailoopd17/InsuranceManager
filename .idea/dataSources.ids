@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="insurancemanager" uuid="4c9bad81-4d75-4743-802d-9d5af82e0001">
+    <database-info product="MySQL" version="5.5.23" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.34 ( Revision: jess.balint@oracle.com-20141014163213-wqbwpf1ok2kvo1om )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
+    <schema name="" catalog="insurancemanager"/>
+    <table name="adress" schema="" catalog="insurancemanager" type="TABLE">
+      <column name="ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="INDEXADRESS" sqlType="VARCHAR" precision="10" scale="0" nullable="true" jdbcType="12"/>
+      <column name="HOUSE" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="HOUSING" sqlType="VARCHAR" precision="10" scale="0" nullable="true" jdbcType="12"/>
+      <column name="BUILDING" sqlType="VARCHAR" precision="10" scale="0" nullable="true" jdbcType="12"/>
+      <column name="APARTMENT" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="CRDC_ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="STREET_ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="ID"/>
+      <foreign-key name="fk_ADRESS_CRDC1" columns="CRDC_ID" ref-table="crdc" ref-schema="" ref-catalog="insurancemanager" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="fk_ADRESS_STREET1" columns="STREET_ID" ref-table="street" ref-schema="" ref-catalog="insurancemanager" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="fk_ESTATE_ADRESS1" table="estate" schema="" catalog="insurancemanager" columns="ADRESS_ID"/>
+      <index name="fk_ADRESS_CRDC1_idx" unique="false" columns="CRDC_ID"/>
+      <index name="fk_ADRESS_STREET1_idx" unique="false" columns="STREET_ID"/>
+    </table>
+    <table name="contracts" schema="" catalog="insurancemanager" type="TABLE">
+      <column name="ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="SUM" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="PREMIUM" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="PERSON_ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="DESCRIPTION" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="DATEFIRST" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91"/>
+      <column name="DATELAST" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91"/>
+      <column name="DATECALC" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91"/>
+      <column name="ESTATE_ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="ID"/>
+      <foreign-key name="fk_CONTRACTS_ESTATE1" columns="ESTATE_ID" ref-table="estate" ref-schema="" ref-catalog="insurancemanager" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="fk_DOGOVOR_PERSON" columns="PERSON_ID" ref-table="persons" ref-schema="" ref-catalog="insurancemanager" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="fk_CONTRACTS_ESTATE1_idx" unique="false" columns="ESTATE_ID"/>
+      <index name="fk_DOGOVOR_PERSON_idx" unique="false" columns="PERSON_ID"/>
+    </table>
+    <table name="crdc" schema="" catalog="insurancemanager" type="TABLE">
+      <column name="ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="COUNTRY" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="REGION" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="DISTRICT" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="CITY" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="ID"/>
+      <exported-key name="fk_ADRESS_CRDC1" table="adress" schema="" catalog="insurancemanager" columns="CRDC_ID"/>
+    </table>
+    <table name="estate" schema="" catalog="insurancemanager" type="TABLE">
+      <column name="ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="TYPE" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="AREA" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="DATEBUILDING" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91"/>
+      <column name="ADRESS_ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="ID,ADRESS_ID"/>
+      <foreign-key name="fk_ESTATE_ADRESS1" columns="ADRESS_ID" ref-table="adress" ref-schema="" ref-catalog="insurancemanager" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="fk_CONTRACTS_ESTATE1" table="contracts" schema="" catalog="insurancemanager" columns="ESTATE_ID"/>
+      <index name="fk_ESTATE_ADRESS1_idx" unique="false" columns="ADRESS_ID"/>
+    </table>
+    <table name="persons" schema="" catalog="insurancemanager" type="TABLE">
+      <column name="ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="FIO" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="BIRTH" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91"/>
+      <column name="PASSPORT" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="ID"/>
+      <exported-key name="fk_DOGOVOR_PERSON" table="contracts" schema="" catalog="insurancemanager" columns="PERSON_ID"/>
+    </table>
+    <table name="street" schema="" catalog="insurancemanager" type="TABLE">
+      <column name="ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="STREET" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="ID"/>
+      <exported-key name="fk_ADRESS_STREET1" table="adress" schema="" catalog="insurancemanager" columns="STREET_ID"/>
+    </table>
+  </data-source>
+</component>
