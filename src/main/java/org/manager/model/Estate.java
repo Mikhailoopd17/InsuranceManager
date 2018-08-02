@@ -11,7 +11,7 @@ public class Estate {
     private String Type;
     private Float Area;
     private Date DateBuilding;
-    private Adress Adress;
+    private Adress Adress;      //переделать в компонент (удалить CRDC и Street)
 
 
     public Estate(){}
